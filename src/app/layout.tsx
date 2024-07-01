@@ -1,5 +1,6 @@
 import { fonts } from '@/fonts';
 import { ChakraProvider } from '@/providers/ChakraProvider';
+import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({
 		<html lang="en" className={fonts.rubik.variable}>
 			<body>
 				<ChakraProvider>
-					<main>{children}</main>
+					<ReactQueryProvider>
+						<main>{children}</main>
+					</ReactQueryProvider>
 				</ChakraProvider>
 			</body>
 		</html>
