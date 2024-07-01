@@ -1,6 +1,7 @@
 'use client';
 
 import type { Search } from '@/types';
+import { Link } from '@chakra-ui/next-js';
 import { FormControl, FormLabel, Input, Skeleton, Stack } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -92,7 +93,9 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 		<Stack as="ul">
 			{data.map((result) => (
 				<li key={result.id}>
-					{result.name}, {result.region}, {result.country}
+					<Link href={result.id.toString()}>
+						{result.name}, {result.region}, {result.country}
+					</Link>
 				</li>
 			))}
 		</Stack>
