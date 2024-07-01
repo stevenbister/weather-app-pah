@@ -1,5 +1,5 @@
 import { fonts } from '@/fonts';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider } from '@/providers/ChakraProvider';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
