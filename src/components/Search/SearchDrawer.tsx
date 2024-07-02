@@ -10,19 +10,25 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	useDisclosure,
+	type DrawerProps,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Search } from './Search';
 
-export function SearchDrawer() {
+export interface SearchDrawerProps
+	extends Omit<DrawerProps, 'isOpen' | 'initialFocusRef' | 'onClose' | 'children'> {
+	triggerText: string;
+}
+
+export function SearchDrawer({ triggerText, ...rest }: SearchDrawerProps) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const inputRef = React.useRef(null);
 
 	return (
 		<>
-			<Button onClick={onOpen}>Search</Button>
+			<Button onClick={onOpen}>{triggerText}</Button>
 
-			<Drawer isOpen={isOpen} placement="left" initialFocusRef={inputRef} onClose={onClose}>
+			<Drawer isOpen={isOpen} initialFocusRef={inputRef} onClose={onClose} {...rest}>
 				<DrawerOverlay />
 				<DrawerContent>
 					<DrawerCloseButton />

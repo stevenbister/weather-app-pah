@@ -15,7 +15,7 @@ export default function Page({ params }: PageProps) {
 
 	return (
 		<Stack spacing={12}>
-			<SearchDrawer />
+			<SearchDrawer triggerText="New search" placement="top" />
 
 			<Suspense fallback={'loading...'}>
 				<CurrentWeather id={Number(params.id)} />
