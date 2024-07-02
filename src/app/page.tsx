@@ -11,7 +11,7 @@ export default async function Home({ searchParams }: HomeProps) {
 	const defaultWeather = await search(searchParams?.s ?? '');
 
 	return (
-		<Container>
+		<Container maxW="container.lg">
 			<Search defaultWeatherData={defaultWeather} />
 		</Container>
 	);
