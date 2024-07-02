@@ -2,7 +2,16 @@
 
 import type { Search } from '@/types';
 import { Link } from '@chakra-ui/next-js';
-import { FormControl, FormLabel, Input, Skeleton, Stack } from '@chakra-ui/react';
+import {
+	Box,
+	FormControl,
+	FormLabel,
+	Input,
+	List,
+	ListItem,
+	Skeleton,
+	Stack,
+} from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -74,9 +83,9 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 	if (isLoading) {
 		return (
 			<Stack>
-				<Skeleton height="20px" />
-				<Skeleton height="20px" />
-				<Skeleton height="20px" />
+				<Skeleton height="50px" />
+				<Skeleton height="50px" />
+				<Skeleton height="50px" />
 			</Stack>
 		);
 	}
@@ -90,13 +99,13 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 	}
 
 	return (
-		<Stack as="ul">
+		<Stack as={List} marginTop="8px">
 			{data.map((result) => (
-				<li key={result.id}>
-					<Link href={result.id.toString()}>
+				<Link href={result.id.toString()} key={result.id}>
+					<Box as={ListItem} bg="gray.200" w="100%" p={4} borderRadius={8}>
 						{result.name}, {result.region}, {result.country}
-					</Link>
-				</li>
+					</Box>
+				</Link>
 			))}
 		</Stack>
 	);
