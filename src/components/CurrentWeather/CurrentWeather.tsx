@@ -1,7 +1,7 @@
 import type { CurrentClass } from '@/types';
 import { formatDateTime } from '@/utils/datetime';
 import { getCurrentById } from '@/utils/weather';
-import { Stack } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import { Alert } from '../Alert/Alert';
 
@@ -27,10 +27,14 @@ export async function CurrentWeather({ id }: WeatherProps) {
 	}
 
 	return (
-		<section>
-			<div>
-				{weather.location.name ?? ''}
-				{formatDateTime(weather.location.localtime) ?? ''}
+		<Flex as="section" w="100%" wrap="wrap" align="end">
+			<Stack flex="1 0 auto">
+				<header>
+					<Stack as="hgroup" spacing={1}>
+						<Text>{formatDateTime(weather.location.localtime) ?? ''}</Text>
+						<Heading as="h1">{weather.location.name ?? ''}</Heading>
+					</Stack>
+				</header>
 
 				{/* TODO: get better icons/images */}
 				<Image
@@ -40,9 +44,12 @@ export async function CurrentWeather({ id }: WeatherProps) {
 					height={200}
 				/>
 				<CurrentWeatherTemp current={weather.current} />
-			</div>
-			<CurrentWeatherGrid current={weather.current} />
-		</section>
+			</Stack>
+
+			<Box flex="1 0 auto">
+				<CurrentWeatherGrid current={weather.current} />
+			</Box>
+		</Flex>
 	);
 }
 
@@ -55,14 +62,14 @@ interface CurrentWeatherTempProps {
 
 function CurrentWeatherTemp({ current }: CurrentWeatherTempProps) {
 	return (
-		<div>
-			<p>
-				<span>{current.temp_c ?? ''}</span>°C
-			</p>
-			<p>
-				Feels like: <span>{current.feelslike_c ?? ''}°C</span>
-			</p>
-		</div>
+		<Flex gap={6} alignItems="center">
+			<Text fontSize="6xl">
+				<Text as="strong">{current.temp_c ?? ''}</Text>°C
+			</Text>
+			<Text display="flex" flexDirection="column">
+				Feels like: <Text as="strong">{current.feelslike_c ?? ''}°C</Text>
+			</Text>
+		</Flex>
 	);
 }
 
@@ -75,12 +82,12 @@ interface CurrentWeatherGridProps {
 
 function CurrentWeatherGrid({ current }: CurrentWeatherGridProps) {
 	return (
-		<div>
+		<SimpleGrid columns={2} w="100%">
 			<WeatherInfo label="Humidity" value={current.humidity ?? ''} unit="%" />
 			<WeatherInfo label="UV" value={current.uv ?? 0} unit="/10" />
 			<WeatherInfo label="Wind" value={current.wind_kph ?? ''} unit="km/h" />
 			<WeatherInfo label="Rain" value={current.precip_mm ?? ''} unit="mm" />
-		</div>
+		</SimpleGrid>
 	);
 }
 
@@ -95,11 +102,11 @@ interface WeatherInfoProps {
 
 function WeatherInfo({ label, value, unit }: WeatherInfoProps) {
 	return (
-		<dl>
-			<dt>{label}</dt>
-			<dd>
-				{value} <span>{unit}</span>
-			</dd>
-		</dl>
+		<Flex as="dl" bg="gray.200" p={2} m={0.5} gap={4} justify="space-between" borderRadius={8}>
+			<Text as="dt">{label}</Text>
+			<Text as="dd">
+				<Text as="strong">{value}</Text> {unit}
+			</Text>
+		</Flex>
 	);
 }

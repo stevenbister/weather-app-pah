@@ -1,6 +1,7 @@
 import { fonts } from '@/fonts';
 import { ChakraProvider } from '@/providers/ChakraProvider';
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
+import { Box } from '@chakra-ui/react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -18,7 +19,9 @@ export default function RootLayout({
 			<body>
 				<ChakraProvider>
 					<ReactQueryProvider>
-						<main>{children}</main>
+						<Box as="main" pt={16}>
+							{children}
+						</Box>
 					</ReactQueryProvider>
 				</ChakraProvider>
 			</body>

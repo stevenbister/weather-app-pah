@@ -5,5 +5,5 @@ export default function PageLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return <Container>{children}</Container>;
+	return <Container maxW="container.lg">{children}</Container>;
 }

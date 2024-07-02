@@ -11,6 +11,7 @@ import {
 	ListItem,
 	Skeleton,
 	Stack,
+	Text,
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -103,12 +104,22 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 
 	return (
 		<Stack as={List} marginTop="8px">
-			{data.map((result) => (
-				<Link href={result.id.toString()} key={result.id}>
-					<Box as={ListItem} bg="gray.200" w="100%" p={4} borderRadius={8}>
-						{result.name}, {result.region}, {result.country}
-					</Box>
-				</Link>
+			{data.map((result, i) => (
+				<Box
+					as={ListItem}
+					borderBottom="solid 1px"
+					borderBottomColor={i === data.length - 1 ? 'transparent' : 'gray.400'}
+					w="100%"
+					p={4}
+					key={result.id}
+				>
+					<Link href={result.id.toString()} display="block">
+						<Text>
+							{result.name}, {result.region}
+						</Text>
+						<Text color="gray.500">{result.country}</Text>
+					</Link>
+				</Box>
 			))}
 		</Stack>
 	);
