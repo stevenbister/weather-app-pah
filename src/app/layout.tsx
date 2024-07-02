@@ -19,7 +19,7 @@ export default function RootLayout({
 			<body>
 				<ChakraProvider>
 					<ReactQueryProvider>
-						<Box as="main" pt={16}>
+						<Box as="main" py={16}>
 							{children}
 						</Box>
 					</ReactQueryProvider>
