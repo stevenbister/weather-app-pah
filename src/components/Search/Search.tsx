@@ -26,9 +26,10 @@ type SearchResult =
 
 export interface SearchProps {
 	defaultWeatherData: SearchResult;
+	inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-export function Search({ defaultWeatherData = undefined }: SearchProps) {
+export function Search({ defaultWeatherData = undefined, inputRef }: SearchProps) {
 	const [value, setValue] = useState<string>('');
 	const [debouncedValue] = useDebounce(value, 500);
 
@@ -41,7 +42,7 @@ export function Search({ defaultWeatherData = undefined }: SearchProps) {
 
 	return (
 		<>
-			<SearchForm value={value} onValueChange={setValue} />
+			<SearchForm value={value} onValueChange={setValue} inputRef={inputRef} />
 			<SearchResults data={data ?? defaultWeatherData} isLoading={isLoading} />
 		</>
 	);
@@ -53,9 +54,10 @@ export function Search({ defaultWeatherData = undefined }: SearchProps) {
 interface SearchFormProps {
 	value: string;
 	onValueChange: (value: string) => void;
+	inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-function SearchForm({ value, onValueChange }: SearchFormProps) {
+function SearchForm({ value, onValueChange, inputRef }: SearchFormProps) {
 	return (
 		<form>
 			<FormControl>
@@ -65,6 +67,7 @@ function SearchForm({ value, onValueChange }: SearchFormProps) {
 					name="s"
 					value={value}
 					onChange={(e) => onValueChange(e.target.value)}
+					ref={inputRef}
 				/>
 			</FormControl>
 		</form>

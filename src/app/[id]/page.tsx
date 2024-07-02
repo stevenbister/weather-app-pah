@@ -1,4 +1,5 @@
 import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather';
+import { SearchDrawer } from '@/components/Search/SearchDrawer';
 import { Suspense } from 'react';
 
 interface PageProps {
@@ -12,6 +13,7 @@ export default function Page({ params }: PageProps) {
 
 	return (
 		<>
+			<SearchDrawer />
 			<Suspense fallback={'loading...'}>
 				<CurrentWeather id={Number(params.id)} />
 			</Suspense>
