@@ -5,6 +5,7 @@ import { Link } from '@chakra-ui/next-js';
 import {
 	Box,
 	FormControl,
+	FormHelperText,
 	FormLabel,
 	Input,
 	List,
@@ -34,7 +35,7 @@ export function Search({ defaultWeatherData = undefined, inputRef }: SearchProps
 	const [value, setValue] = useState<string>('');
 	const [debouncedValue] = useDebounce(value, 500);
 
-	const { data, isLoading, isError } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ['searchWeather', debouncedValue],
 		queryFn: async () => await searchWeather(debouncedValue),
 		// ⬇️ disabled as long as the value is empty
@@ -44,7 +45,10 @@ export function Search({ defaultWeatherData = undefined, inputRef }: SearchProps
 	return (
 		<>
 			<SearchForm value={value} onValueChange={setValue} inputRef={inputRef} />
-			<SearchResults data={data ?? defaultWeatherData} isLoading={isLoading} />
+			<SearchResults
+				data={data ?? defaultWeatherData}
+				isLoading={value !== debouncedValue || isLoading}
+			/>
 		</>
 	);
 }
@@ -70,6 +74,7 @@ function SearchForm({ value, onValueChange, inputRef }: SearchFormProps) {
 					onChange={(e) => onValueChange(e.target.value)}
 					ref={inputRef}
 				/>
+				<FormHelperText>Search by city or postcode</FormHelperText>
 			</FormControl>
 		</form>
 	);
@@ -86,7 +91,7 @@ interface SearchResultsProps {
 function SearchResults({ data, isLoading }: SearchResultsProps) {
 	if (isLoading) {
 		return (
-			<Stack>
+			<Stack mt={6}>
 				<Skeleton height="50px" />
 				<Skeleton height="50px" />
 				<Skeleton height="50px" />
@@ -94,21 +99,23 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 		);
 	}
 
-	if (!data) {
-		return <p>No results found</p>;
-	}
+	if (data === undefined) return null;
 
 	if ('error' in data) {
 		return <Alert status="error" message={data.error} />;
 	}
 
+	if (data.length === 0) {
+		return <Text mt={6}>No results found, please try searching again.</Text>;
+	}
+
 	return (
-		<Stack as={List} marginTop="8px">
+		<Stack as={List} mt={6}>
 			{data.map((result, i) => (
 				<Box
 					as={ListItem}
-					borderBottom="solid 1px"
-					borderBottomColor={i === data.length - 1 ? 'transparent' : 'gray.400'}
+					borderTop="solid 1px"
+					borderTopColor="gray.400"
 					w="100%"
 					p={4}
 					key={result.id}
