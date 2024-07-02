@@ -1,4 +1,4 @@
-import { Search } from '@/components/Search';
+import { Search } from '@/components/Search/Search';
 import { search } from '@/utils/weather';
 import { Container } from '@chakra-ui/react';
 

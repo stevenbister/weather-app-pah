@@ -1,4 +1,4 @@
-import { CurrentWeather } from '@/components/CurrentWeather';
+import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather';
 import { Suspense } from 'react';
 
 interface PageProps {

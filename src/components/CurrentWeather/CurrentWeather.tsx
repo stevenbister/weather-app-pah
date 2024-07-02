@@ -3,7 +3,7 @@ import { formatDateTime } from '@/utils/datetime';
 import { getCurrentById } from '@/utils/weather';
 import { Stack } from '@chakra-ui/react';
 import Image from 'next/image';
-import { Alert } from './Alert';
+import { Alert } from '../Alert/Alert';
 
 export interface WeatherProps {
 	id: number;

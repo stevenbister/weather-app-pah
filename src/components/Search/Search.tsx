@@ -15,7 +15,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import { Alert } from './Alert';
+import { Alert } from '../Alert/Alert';
 
 type SearchResult =
 	| Search[]
