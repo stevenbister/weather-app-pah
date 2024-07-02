@@ -31,7 +31,9 @@ export async function CurrentWeather({ id }: WeatherProps) {
 			<Stack flex="1 0 auto">
 				<header>
 					<Stack as="hgroup" spacing={1}>
-						<Text>{formatDateTime(weather.location.localtime) ?? ''}</Text>
+						<Text color="gray.700">
+							{formatDateTime(weather.location.localtime) ?? ''}
+						</Text>
 						<Heading as="h1">{weather.location.name ?? ''}</Heading>
 					</Stack>
 				</header>

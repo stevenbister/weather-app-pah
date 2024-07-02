@@ -117,7 +117,7 @@ function SearchResults({ data, isLoading }: SearchResultsProps) {
 						<Text>
 							{result.name}, {result.region}
 						</Text>
-						<Text color="gray.500">{result.country}</Text>
+						<Text color="gray.700">{result.country}</Text>
 					</Link>
 				</Box>
 			))}
