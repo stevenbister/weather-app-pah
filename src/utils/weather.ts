@@ -22,13 +22,15 @@ async function getWeatherApiData<T>(endpoint: string, query: string): Promise<T>
 	return data;
 }
 
+type Result<T> = T | undefined | { error: string };
+
 /**
  * Retrieves the current weather data by ID.
  *
  * @param id - The ID of the weather data to retrieve.
  * @returns A promise that resolves to the current weather data.
  */
-export async function getCurrentById(id: number): Promise<Current | undefined | { error: string }> {
+export async function getCurrentById(id: number): Promise<Result<Current>> {
 	try {
 		if (!id) return;
 
@@ -49,10 +51,7 @@ export async function getCurrentById(id: number): Promise<Current | undefined | 
  * @param days - The number of days to retrieve the forecast for, upto 14 days.
  * @returns A Promise that resolves to the forecast data.
  */
-export async function getForecastById(
-	id: number,
-	days: number
-): Promise<Forecast | undefined | { error: string }> {
+export async function getForecastById(id: number, days: number): Promise<Result<Forecast>> {
 	try {
 		if (days < 1 || days > 14) {
 			throw new Error('The number of days must be between 1 and 14');
@@ -74,7 +73,7 @@ export async function getForecastById(
  * @param query - The search query. Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.
  * @returns A promise that resolves to an array of search results.
  */
-export async function search(query: string): Promise<Search[] | undefined | { error: string }> {
+export async function search(query: string): Promise<Result<Search[]>> {
 	try {
 		if (!query) return;
 
