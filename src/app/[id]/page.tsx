@@ -1,6 +1,7 @@
 import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather';
 import { SearchDrawer } from '@/components/Search/SearchDrawer';
-import { Box, Stack } from '@chakra-ui/react';
+import { WeatherForecast } from '@/components/WeatherForecast/WeatherForecast';
+import { Stack } from '@chakra-ui/react';
 import { Suspense } from 'react';
 
 interface PageProps {
@@ -13,12 +14,15 @@ export default function Page({ params }: PageProps) {
 	}
 
 	return (
-		<Stack>
-			<Box mb={12}>
-				<SearchDrawer />
-			</Box>
+		<Stack spacing={12}>
+			<SearchDrawer />
+
 			<Suspense fallback={'loading...'}>
 				<CurrentWeather id={Number(params.id)} />
+			</Suspense>
+
+			<Suspense fallback={'loading...'}>
+				<WeatherForecast id={Number(params.id)} />
 			</Suspense>
 		</Stack>
 	);
