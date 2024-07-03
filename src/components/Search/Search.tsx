@@ -27,7 +27,7 @@ type SearchResult =
 	| undefined;
 
 export interface SearchProps {
-	defaultWeatherData: SearchResult;
+	defaultWeatherData?: SearchResult;
 	inputRef?: React.RefObject<HTMLInputElement>;
 }
 

@@ -7,7 +7,7 @@ export interface HeaderProps extends Omit<ContainerProps, 'as' | 'maxW'> {}
 
 export function Header({ ...rest }: HeaderProps) {
 	return (
-		<Container as="header" maxW="container.lg" {...rest}>
+		<Container as="header" maxW="container.xl" {...rest}>
 			<Heading as="h1">
 				<Link href="/">Next Weather</Link>
 			</Heading>

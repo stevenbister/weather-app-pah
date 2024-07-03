@@ -1,5 +1,4 @@
 import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather';
-import { SearchDrawer } from '@/components/Search/SearchDrawer';
 import { WeatherForecast } from '@/components/WeatherForecast/WeatherForecast';
 import { Stack } from '@chakra-ui/react';
 import { Suspense } from 'react';
@@ -15,8 +14,6 @@ export default function Page({ params }: PageProps) {
 
 	return (
 		<Stack spacing={12}>
-			<SearchDrawer triggerText="New search" placement="top" />
-
 			<Suspense fallback={'loading...'}>
 				<CurrentWeather id={Number(params.id)} />
 			</Suspense>

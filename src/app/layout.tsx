@@ -1,8 +1,10 @@
 import { Header } from '@/components/Header/Header';
+import { Search } from '@/components/Search/Search';
+import { SearchDrawer } from '@/components/Search/SearchDrawer';
 import { fonts } from '@/fonts';
 import { ChakraProvider } from '@/providers/ChakraProvider';
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
-import { Box } from '@chakra-ui/react';
+import { Box, Center, Container, Divider, Flex, Grid, GridItem } from '@chakra-ui/react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,17 +18,47 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={fonts.rubik.variable}>
-			<body>
+			<Flex as="body" minH="100dvh" direction="column">
 				<ChakraProvider>
 					<Header py={8} />
 
-					<ReactQueryProvider>
-						<Box as="main" pb={16}>
-							{children}
-						</Box>
-					</ReactQueryProvider>
+					<Container maxW="container.xl" pb={16} flex="1 0 auto" display="flex">
+						<Grid templateColumns="repeat(12, 1fr)" gap={6} flex="1">
+							<GridItem
+								as="aside"
+								colSpan={{
+									base: 12,
+									md: 3,
+								}}
+							>
+								<ReactQueryProvider>
+									<Box hideBelow="md">
+										<Search />
+									</Box>
+									<Box hideFrom="md">
+										<SearchDrawer triggerText="Search" placement="top" />
+									</Box>
+								</ReactQueryProvider>
+							</GridItem>
+
+							<Center hideBelow="md">
+								<Divider orientation="vertical" />
+							</Center>
+
+							<GridItem
+								as="main"
+								colSpan={{
+									base: 12,
+									md: 8,
+								}}
+								alignSelf="center"
+							>
+								{children}
+							</GridItem>
+						</Grid>
+					</Container>
 				</ChakraProvider>
-			</body>
+			</Flex>
 		</html>
 	);
 }

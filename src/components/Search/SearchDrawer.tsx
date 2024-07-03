@@ -12,7 +12,8 @@ import {
 	useDisclosure,
 	type DrawerProps,
 } from '@chakra-ui/react';
-import React from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
 import { Search } from './Search';
 
 export interface SearchDrawerProps
@@ -22,11 +23,19 @@ export interface SearchDrawerProps
 
 export function SearchDrawer({ triggerText, ...rest }: SearchDrawerProps) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const inputRef = React.useRef(null);
+
+	useEffect(() => {
+		onClose();
+	}, [onClose, pathname, searchParams]);
 
 	return (
 		<>
-			<Button onClick={onOpen}>{triggerText}</Button>
+			<Button onClick={onOpen} w="100%">
+				{triggerText}
+			</Button>
 
 			<Drawer isOpen={isOpen} initialFocusRef={inputRef} onClose={onClose} {...rest}>
 				<DrawerOverlay />
