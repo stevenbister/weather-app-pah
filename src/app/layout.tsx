@@ -6,6 +6,7 @@ import { ChakraProvider } from '@/providers/ChakraProvider';
 import { ReactQueryProvider } from '@/providers/ReactQueryProvider';
 import { Box, Center, Container, Divider, Flex, Grid, GridItem } from '@chakra-ui/react';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
 	title: 'Next Weather',
@@ -36,7 +37,9 @@ export default function RootLayout({
 										<Search />
 									</Box>
 									<Box hideFrom="md">
-										<SearchDrawer triggerText="Search" placement="top" />
+										<Suspense>
+											<SearchDrawer triggerText="Search" placement="top" />
+										</Suspense>
 									</Box>
 								</ReactQueryProvider>
 							</GridItem>
