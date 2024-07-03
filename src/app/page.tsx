@@ -1,6 +1,6 @@
 import { Center, Container, Text } from '@chakra-ui/react';
 
-export default async function Home() {
+export default function Home() {
 	return (
 		<Container maxW="container.lg">
 			<Center>
